@@ -27,11 +27,13 @@ const owna: ObjectWithNameArray = [{ name: "wfp" }];
 
 const user: User = new UserAccount("wfp", 2);
 
-interface Backpack<Type> {
-  add: (obj: Type) => void;
-  get: () => Type;
-}
+// interface Backpack<Type> {
+//   add: (obj: Type) => void;
+//   get: () => Type;
+// }
 
-declare const backpack: Backpack<string>;
+// declare const backpack: Backpack<string>;
 
-backpack.get();
+// backpack.get();
+
+console.log("yay");
