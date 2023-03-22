@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "Launch Parsing",
+      "request": "launch",
+      "runtimeArgs": ["run", "parse", "data/simplewiki-20240801-pages-articles.xml"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "outputCapture": "std"
+    },
+    {
+      "name": "Launch Playground",
+      "request": "launch",
+      "runtimeArgs": ["run", "playground"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "outputCapture": "std"
+    }
+  ]
+}

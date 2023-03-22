@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres@postgres/wiki-tracer-ts"
+}
+
+model Page {
+  id       Int     @id @default(autoincrement())
+  title    String  @unique
+  complete Boolean @default(false)
+
+  @@index(complete)
+}
+
+model Link {
+  id   Int    @id @default(autoincrement())
+  from String
+  to   String
+
+  @@index(from)
+  @@index(to)
+}
