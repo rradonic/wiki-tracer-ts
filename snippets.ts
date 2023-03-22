@@ -26,3 +26,12 @@ const sa: StringArray = ["wfp", "rst"];
 const owna: ObjectWithNameArray = [{ name: "wfp" }];
 
 const user: User = new UserAccount("wfp", 2);
+
+interface Backpack<Type> {
+  add: (obj: Type) => void;
+  get: () => Type;
+}
+
+declare const backpack: Backpack<string>;
+
+backpack.get();
