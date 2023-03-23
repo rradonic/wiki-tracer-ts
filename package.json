@@ -8,6 +8,10 @@
   },
   "author": "Ranko Radonic",
   "license": "ISC",
+  "engines": {
+    "npm": ">=9.0.0",
+    "node": ">=19.8.0"
+  },
   "dependencies": {
     "typescript": "^5.0.2"
   }
