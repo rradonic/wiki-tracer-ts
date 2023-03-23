@@ -1,2 +1,2 @@
-const wfp: number = 5;
+const wfp: number = 6;
 console.log("hello world");
