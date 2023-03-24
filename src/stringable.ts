@@ -1,3 +1,0 @@
-interface Stringable {
-  toString(): string;
-}

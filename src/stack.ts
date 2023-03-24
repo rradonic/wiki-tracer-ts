@@ -1,20 +1,24 @@
-interface Stack<T> {
+export interface Stack<T> {
   push(item: T): void;
   pop(): T;
 }
 
-class Stack<T> implements Stack<T> {
-  stack: Array<T>;
+export class Stack<T> implements Stack<T> {
+  #stack: Array<T>;
 
   constructor() {
-    this.stack = [];
+    this.#stack = [];
   }
 
   push(item: T) {
-    this.stack.push(item);
+    this.#stack.push(item);
   }
 
   pop(): T | undefined {
-    return this.stack.pop();
+    return this.#stack.pop();
+  }
+
+  top(): T | undefined {
+    return this.#stack.at(-1);
   }
 }

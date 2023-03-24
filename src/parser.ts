@@ -1,25 +1,26 @@
 import expat from "node-expat";
 import fs from "fs";
+import { Stack } from "./stack";
 
-const ELEMENT = "book";
+interface Stringable {
+  toString(): string;
+}
+
+const ELEMENT = "title";
 
 const parser = new expat.Parser("UTF-8");
-let inElement = false;
+const elementStack = new Stack<string>();
 
 parser.on("startElement", function (name: string) {
-  if (name === ELEMENT) {
-    inElement = true;
-  }
+  elementStack.push(name);
 });
 
 parser.on("endElement", function (name: string) {
-  if (name === ELEMENT) {
-    inElement = false;
-  }
+  elementStack.pop();
 });
 
 parser.on("text", function (text: string) {
-  if (inElement) {
+  if (elementStack.top() === ELEMENT) {
     console.log(text);
   }
 });
