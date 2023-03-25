@@ -14,18 +14,15 @@ interface Element {
 const parser = new expat.Parser("UTF-8");
 const stack = new SimpleStack<Element>();
 
-let counter = 0;
-
 parser.on("startElement", function (name: string) {
-  if (name === "text") {
-    counter++;
-  }
+  // if (name === "text") {
+  // }
 
   stack.push({ key: name });
 });
 
 parser.on("endElement", function (name: string) {
-  if (name === "text" && counter >= 3) {
+  if (name === "text") {
     console.log(stack.toJson());
     process.exit();
   }
@@ -34,10 +31,7 @@ parser.on("endElement", function (name: string) {
 });
 
 parser.on("text", function (text: string) {
-  // const top = stack.top();
-  // if (top.key === "title") {
-  //   console.log(`${counter}: `, text);
-  // }
+  stack.top().value = text;
 });
 
 const stream = fs.createReadStream(
