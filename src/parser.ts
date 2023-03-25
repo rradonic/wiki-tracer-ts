@@ -15,15 +15,12 @@ const parser = new expat.Parser("UTF-8");
 const stack = new SimpleStack<Element>();
 
 parser.on("startElement", function (name: string) {
-  // if (name === "text") {
-  // }
-
   stack.push({ key: name });
 });
 
 parser.on("endElement", function (name: string) {
   if (name === "text") {
-    console.log(stack.toJson());
+    console.log(stack.stack);
     process.exit();
   }
 
