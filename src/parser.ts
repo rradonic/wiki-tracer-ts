@@ -1,37 +1,49 @@
 import expat from "node-expat";
 import fs from "fs";
-import { Stack } from "./stack";
+import { SimpleStack } from "./simpleStack";
 
 interface Stringable {
   toString(): string;
 }
 
-const ELEMENT = "title";
+interface Element {
+  key: string;
+  value?: string;
+}
 
 const parser = new expat.Parser("UTF-8");
-const elementStack = new Stack<string>();
+const stack = new SimpleStack<Element>();
+
+let counter = 0;
 
 parser.on("startElement", function (name: string) {
-  elementStack.push(name);
+  if (name === "text") {
+    counter++;
+  }
+
+  stack.push({ key: name });
 });
 
 parser.on("endElement", function (name: string) {
-  elementStack.pop();
+  if (name === "text" && counter >= 3) {
+    console.log(stack.toJson());
+    process.exit();
+  }
+
+  stack.pop();
 });
 
 parser.on("text", function (text: string) {
-  if (elementStack.top() === ELEMENT) {
-    console.log(text);
-  }
+  // const top = stack.top();
+  // if (top.key === "title") {
+  //   console.log(`${counter}: `, text);
+  // }
 });
 
-parser.on("error", function (error: unknown) {
-  console.error("Error: ", error);
-});
-
-const stream = fs.createReadStream("data/books.xml", {
-  highWaterMark: 1024 * 1024,
-});
+const stream = fs.createReadStream(
+  "data/enwiki-20230320-pages-articles-multistream.xml",
+  { highWaterMark: 1024 * 1024 }
+);
 
 stream.on("data", (chunk: Stringable) => {
   parser.write(chunk.toString());
@@ -39,8 +51,4 @@ stream.on("data", (chunk: Stringable) => {
 
 stream.on("end", () => {
   console.log("End of file");
-});
-
-stream.on("error", (err: Error) => {
-  console.error("Error: ", err);
 });
