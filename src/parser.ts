@@ -28,6 +28,7 @@ parser.on("endElement", function (name: string) {
 });
 
 parser.on("text", function (text: string) {
+  console.log(text);
   stack.top().value = text;
 });
 
