@@ -11,6 +11,8 @@
     "skipLibCheck": true
   },
   "ts-node": {
-    "transpileOnly": true
+    "compilerOptions": {
+      "isolatedModules": false
+    }
   }
 }

@@ -3,7 +3,7 @@ import util from "util";
 import { Stack } from "./stack";
 
 export class SimpleStack<T> implements Stack<T> {
-  stack: Array<T>;
+  private stack: Array<T>;
 
   constructor() {
     this.stack = [];
