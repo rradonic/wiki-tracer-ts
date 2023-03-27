@@ -18,7 +18,7 @@ export class Page {
     let result = iterator.next();
 
     while (!result.done) {
-      const title = result.value[1].split("|")[0];
+      const title = result.value[1].split("|")[0].trim();
 
       if (!specialArticle(title)) {
         this.links.push(title);
