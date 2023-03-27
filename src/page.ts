@@ -1,3 +1,5 @@
+import { specialArticle } from "./specialArticle";
+
 export class Page {
   title: string | undefined;
   text: string | undefined;
@@ -16,8 +18,10 @@ export class Page {
     let result = iterator.next();
 
     while (!result.done) {
-      if (!result.value[1].startsWith("File:")) {
-        this.links.push(result.value[1].split("|")[0].toLowerCase());
+      const title = result.value[1].split("|")[0];
+
+      if (!specialArticle(title)) {
+        this.links.push(title);
       }
 
       result = iterator.next();

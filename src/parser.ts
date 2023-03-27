@@ -4,6 +4,7 @@ import fs from "fs";
 import { Page } from "./page";
 import { ParserElement } from "./parserElement";
 import { SimpleStack } from "./simpleStack";
+import { specialArticle } from "./specialArticle";
 
 interface Stringable {
   toString(): string;
@@ -21,20 +22,21 @@ parser.on("startElement", function (name: string) {
 
 parser.on("endElement", function (name: string) {
   if (name === "title") {
-    page.title = (stack.top().value as string).toLowerCase();
+    page.title = stack.top().value;
   }
 
-  if (name === "text") {
+  if (name === "text" && !specialArticle(page.title as string)) {
     counter++;
 
     page.text = stack.top().value;
     page.processLinks();
 
-    console.log("Page:", page);
+    writeStream.write(`${page.title}\n`);
+    console.log(`${counter}: ${page.title}`);
 
-    if (counter >= 2) {
-      process.exit();
-    }
+    (page.links as Array<string>).forEach((link) => {
+      writeStream.write(`  ${link}\n`);
+    });
   }
 
   stack.pop();
@@ -50,15 +52,17 @@ parser.on("text", function (text: string) {
   }
 });
 
-const stream = fs.createReadStream(
+const readStream = fs.createReadStream(
   "data/enwiki-20230320-pages-articles-multistream.xml",
   { highWaterMark: 1024 * 1024 }
 );
 
-stream.on("data", (chunk: Stringable) => {
+const writeStream = fs.createWriteStream("data/pages.out");
+
+readStream.on("data", (chunk: Stringable) => {
   parser.write(chunk.toString());
 });
 
-stream.on("end", () => {
+readStream.on("end", () => {
   console.log("End of file");
 });
