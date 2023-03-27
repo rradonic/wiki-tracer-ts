@@ -7,6 +7,8 @@ export const SPECIAL_ARTICLE_PREFIXES = [
   "Template:",
   "wikt:",
   "s:",
+  "iarchive:",
+  "MediaWiki:",
 ];
 
 export function specialArticle(title: string): boolean {
