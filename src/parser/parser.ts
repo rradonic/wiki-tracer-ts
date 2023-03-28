@@ -14,6 +14,7 @@ const parser = new expat.Parser("UTF-8");
 const stack = new SimpleStack<ParserElement>();
 const page = new Page();
 
+// for reference, there are 17091708 pages, including redirect pages
 let counter = 0;
 
 parser.on("startElement", function (name: string) {
