@@ -11,6 +11,8 @@ export const SPECIAL_ARTICLE_PREFIXES = [
   "MediaWiki:",
   "Help:",
   "Draft:",
+  ":commons:",
+  ":d:",
 ];
 
 export function specialArticle(title: string): boolean {
