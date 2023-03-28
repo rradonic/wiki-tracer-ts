@@ -13,6 +13,9 @@ export const SPECIAL_ARTICLE_PREFIXES = [
   "Draft:",
   ":commons:",
   ":d:",
+  "Module:",
+  "TimedText:",
+  "Category:",
 ];
 
 export function specialArticle(title: string): boolean {
