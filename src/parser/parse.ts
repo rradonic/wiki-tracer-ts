@@ -53,10 +53,9 @@ parser.on("text", function (text: string) {
   }
 });
 
-const readStream = fs.createReadStream(
-  "data/enwiki-20230320-pages-articles-multistream.xml",
-  { highWaterMark: 1024 * 1024 }
-);
+const readStream = fs.createReadStream("data/enwiki-20230320-pages-articles-multistream.xml", {
+  highWaterMark: 1024 * 1024,
+});
 
 const writeStream = fs.createWriteStream("data/pages.out");
 
