@@ -11,17 +11,17 @@ const rl = readline.createInterface({
   input: fileStream,
 });
 
-let nodes = new Array<GraphNode>()
+let nodes = new Array<GraphNode>();
 let counter = 0;
 
 rl.on("line", (line) => {
   counter++;
   console.log(`Line ${counter}`);
 
-  if(line.startsWith('  ')) {
-    node.at(-1).edges.push()
-  }
-  nodes.push(new GraphNode(name:))
+  // if(line.startsWith('  ')) {
+  //   node.at(-1).edges.push()
+  // }
+  // nodes.push(new GraphNode(name:))
 });
 
 rl.on("close", () => {

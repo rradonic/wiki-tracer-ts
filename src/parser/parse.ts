@@ -14,6 +14,11 @@ const parser = new expat.Parser("UTF-8");
 const stack = new SimpleStack<ParserElement>();
 const page = new Page();
 
+if (process.argv.length < 3) {
+  console.log("Missing input file parameter.");
+  process.exit();
+}
+
 // for reference, there are 17091708 pages, including redirect pages
 let counter = 0;
 
@@ -53,7 +58,7 @@ parser.on("text", function (text: string) {
   }
 });
 
-const readStream = fs.createReadStream("data/enwiki-20230320-pages-articles-multistream.xml", {
+const readStream = fs.createReadStream(process.argv[2], {
   highWaterMark: 1024 * 1024,
 });
 
