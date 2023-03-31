@@ -18,10 +18,6 @@ export const SPECIAL_ARTICLE_PREFIXES = [
   "Category:",
 ];
 
-export function specialArticle(title: string | undefined): boolean {
-  if (title === undefined) {
-    return false;
-  }
-
+export function specialArticle(title: string): boolean {
   return SPECIAL_ARTICLE_PREFIXES.some((prefix) => title.startsWith(prefix));
 }

@@ -31,7 +31,7 @@ parser.on("endElement", function (name: string) {
     page.title = stack.top().value;
   }
 
-  if (name === "text" && !specialArticle(page.title)) {
+  if (name === "text" && !specialArticle(page.title ?? "")) {
     counter++;
 
     page.text = stack.top().value;
