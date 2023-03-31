@@ -26,7 +26,7 @@ parser.on("endElement", function (name: string) {
     page.title = stack.top().value;
   }
 
-  if (name === "text" && !specialArticle(page.title as string)) {
+  if (name === "text" && !specialArticle(page.title!)) {
     counter++;
 
     page.text = stack.top().value;
@@ -35,7 +35,7 @@ parser.on("endElement", function (name: string) {
     writeStream.write(`${page.title}\n`);
     console.log(`${counter}: ${page.title}`);
 
-    (page.links as Array<string>).forEach((link) => {
+    page.links!.forEach((link) => {
       writeStream.write(`  ${link}\n`);
     });
   }
