@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "parseWikipedia": "node --enable-source-maps dist/parser/parse.js",
-    "loadGraph": "node --enable-source-maps dist/graph/load.js",
+    "parse": "node --enable-source-maps dist/parser/parse.js",
+    "load": "node --enable-source-maps dist/graph/load.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ranko Radonic",

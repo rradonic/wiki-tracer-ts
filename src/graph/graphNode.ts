@@ -1,9 +1,8 @@
 export class GraphNode {
   name: string;
-  edges: Array<GraphNode>;
+  edges: Array<GraphNode> = [];
 
-  constructor(name: string, edges: Array<GraphNode>) {
+  constructor(name: string) {
     this.name = name;
-    this.edges = edges;
   }
 }
