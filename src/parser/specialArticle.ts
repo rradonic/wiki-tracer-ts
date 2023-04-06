@@ -16,6 +16,7 @@ export const SPECIAL_ARTICLE_PREFIXES = [
   "Module:",
   "TimedText:",
   "Category:",
+  "Image:",
 ];
 
 export function specialArticle(title: string): boolean {
