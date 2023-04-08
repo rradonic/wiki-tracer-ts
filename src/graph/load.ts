@@ -3,6 +3,7 @@ import readline from "readline";
 
 import { GraphNode } from "./graphNode";
 import { orderedInsert } from "./orderedInsert";
+import { connectNodes } from "./connectNodes";
 
 const fileStream = fs.createReadStream("data/pages.out", {
   highWaterMark: 1024 * 1024,
@@ -33,5 +34,6 @@ rl.on("line", (line) => {
 
 rl.on("close", () => {
   console.log("End of file");
-  console.log(nodes.map((n) => [n.name, n.edges.length].join(", ")).join("\n"));
+  connectNodes(nodes);
+  // console.log(nodes.map((n) => [n.name, n.edges.length].join(", ")).join("\n"));
 });
