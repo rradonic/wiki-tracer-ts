@@ -2,6 +2,7 @@ import fs from "fs";
 import readline from "readline";
 
 import { GraphNode } from "./graphNode";
+import { orderedInsert } from "./orderedInsert";
 
 const fileStream = fs.createReadStream("data/pages.out", {
   highWaterMark: 1024 * 1024,
@@ -12,18 +13,25 @@ const rl = readline.createInterface({
 });
 
 const nodes = new Array<GraphNode>();
+let currentNode: GraphNode | undefined;
 let counter = 0;
 
 rl.on("line", (line) => {
   counter++;
-  console.log(`Line ${counter}`);
+
+  if (counter % 100000 === 0) {
+    console.log(`Line ${counter}`);
+  }
 
   if (line.startsWith("  ")) {
-    nodes.at(-1)!.edges.push(new GraphNode(line.trim()));
+    currentNode!.edges.push(new GraphNode(line.trim()));
+  } else {
+    currentNode = new GraphNode(line);
+    orderedInsert(nodes, currentNode);
   }
-  nodes.push(new GraphNode(line));
 });
 
 rl.on("close", () => {
   console.log("End of file");
+  console.log(nodes.map((n) => [n.name, n.edges.length].join(", ")).join("\n"));
 });
