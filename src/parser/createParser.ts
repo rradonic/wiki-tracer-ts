@@ -30,11 +30,11 @@ export function createParser(writeStream: fs.WriteStream) {
       page.text = stack.top().value;
       page.processLinks();
 
-      writeStream.write(`${page.title}\n`);
-      console.log(`${counter}: ${page.title}`);
+      writeStream.write(`${page.title!.toLowerCase()}\n`);
+      console.log(`${counter}: ${page.title!.toLowerCase()}`);
 
       page.links!.forEach((link) => {
-        writeStream.write(`  ${link}\n`);
+        writeStream.write(`  ${link.toLowerCase()}\n`);
       });
     }
 
