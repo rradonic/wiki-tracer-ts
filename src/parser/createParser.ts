@@ -34,7 +34,8 @@ export function createParser(writeStream: fs.WriteStream) {
       console.log(`${counter}: ${page.title!.toLowerCase()}`);
 
       page.links!.forEach((link) => {
-        writeStream.write(`  ${link.toLowerCase()}\n`);
+        // the split('#')[0] is to remove the anchor, if there is one
+        writeStream.write(`  ${link.split("#")[0].toLowerCase()}\n`);
       });
     }
 
