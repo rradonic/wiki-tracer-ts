@@ -6,8 +6,4 @@ export class GraphNode {
   constructor(name: string) {
     this.name = name;
   }
-
-  connectEdges(nodes: Array<GraphNode>) {
-    return;
-  }
 }
