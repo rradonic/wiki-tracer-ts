@@ -34,8 +34,19 @@ rl.on("line", (line) => {
 
 rl.on("close", () => {
   console.log("End of file");
+  console.log("Connecting edges...");
+
+  counter = 0;
 
   nodes.forEach((node) => {
+    counter++;
+
+    if (counter % 10000 === 0) {
+      console.log(`Node ${counter}`);
+    }
+
     connectEdges(nodes, node);
   });
+
+  console.log(nodes.slice(0, 5));
 });
