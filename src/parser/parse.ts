@@ -1,6 +1,6 @@
 import fs from "fs";
 
-import { createParser } from "./parser";
+import { createParser } from "./createParser";
 
 interface Stringable {
   toString(): string;
