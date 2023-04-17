@@ -1,0 +1,5 @@
+{
+  "name": "wiki-tracer",
+  "build": { "dockerfile": "Dockerfile" },
+  "postStartCommand": "/etc/init.d/postgresql start"
+}
