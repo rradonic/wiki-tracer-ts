@@ -1,4 +1,4 @@
-import { GraphNode } from "./graphNode";
+import { GraphNode } from "./models/graphNode";
 
 export function findNode(nodes: Array<GraphNode>, name: string) {
   let left = 0;

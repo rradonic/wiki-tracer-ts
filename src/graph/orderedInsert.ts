@@ -1,4 +1,4 @@
-import { GraphNode } from "./graphNode";
+import { GraphNode } from "./models/graphNode";
 
 export function orderedInsert(nodes: Array<GraphNode>, node: GraphNode) {
   let left = 0;

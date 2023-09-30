@@ -1,4 +1,4 @@
-import { specialArticle } from "./specialArticle";
+import { specialArticle } from "../specialArticle";
 
 export class Page {
   title: string | undefined;

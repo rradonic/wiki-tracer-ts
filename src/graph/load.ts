@@ -1,7 +1,7 @@
 import fs from "fs";
 import readline from "readline";
 
-import { GraphNode } from "./graphNode";
+import { GraphNode } from "./models/graphNode";
 import { orderedInsert } from "./orderedInsert";
 import { connectEdges } from "./connectEdges";
 

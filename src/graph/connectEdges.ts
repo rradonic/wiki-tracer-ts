@@ -1,4 +1,4 @@
-import { GraphNode } from "./graphNode";
+import { GraphNode } from "./models/graphNode";
 import { findNode } from "./findNode";
 
 export function connectEdges(nodes: Array<GraphNode>, node: GraphNode) {

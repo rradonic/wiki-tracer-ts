@@ -2,9 +2,9 @@ import fs from "fs";
 
 import expat from "node-expat";
 
-import { Page } from "./page";
-import { ParserElement } from "./parserElement";
-import { SimpleStack } from "./simpleStack";
+import { Page } from "./models/page";
+import { ParserElement } from "./models/parserElement";
+import { SimpleStack } from "./models/simpleStack";
 import { specialArticle } from "./specialArticle";
 
 export function createParser(writeStream: fs.WriteStream) {
