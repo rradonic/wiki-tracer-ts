@@ -47,6 +47,4 @@ rl.on("close", () => {
 
     connectEdges(nodes, node);
   });
-
-  console.log(nodes.slice(0, 5));
 });
