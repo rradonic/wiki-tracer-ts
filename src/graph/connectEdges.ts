@@ -6,6 +6,7 @@ export function connectEdges(nodes: Array<GraphNode>, node: GraphNode) {
     const targetNode = findNode(nodes, name);
 
     if (targetNode) {
-      node.edges.push(targetNode);
+      node.addEdge(targetNode);
     }
   });
+}

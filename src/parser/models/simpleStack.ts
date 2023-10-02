@@ -1,6 +1,6 @@
 import util from "util";
 
-import { Stack } from "../stack";
+import { Stack } from "./stack";
 
 export class SimpleStack<T> implements Stack<T> {
   private stack: Array<T>;
