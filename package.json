@@ -6,6 +6,7 @@
   "scripts": {
     "parse": "node --enable-source-maps dist/parser/parse.js",
     "load": "node --enable-source-maps dist/graph/load.js",
+    "dijkstra": "node --enable-source-maps dist/graph/dijkstra.js",
     "start": "node --enable-source-maps dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
