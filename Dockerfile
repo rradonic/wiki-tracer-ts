@@ -13,7 +13,7 @@ ENV POSTGRES_HOST_AUTH_METHOD=trust
 
 RUN apt-get install -y zsh tmux less
 
-# WORKDIR /workspaces/wiki-tracer
+# WORKDIR /workspaces/wiki-tracer-ts
 # RUN npm install
 
 # this is for the actual build, for now i'm just using this docker image via dev containers which map your source
