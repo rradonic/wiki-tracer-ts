@@ -2,7 +2,7 @@ import fs from "fs";
 
 import { createParser } from "./createParser";
 
-interface Stringable {
+type Stringable = {
   toString(): string;
 }
 

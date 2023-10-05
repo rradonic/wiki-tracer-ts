@@ -1,4 +1,4 @@
-export interface ParserElement {
+export type ParserElement = {
   key: string;
   value?: string;
 }
