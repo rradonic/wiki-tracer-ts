@@ -17,6 +17,7 @@
     "node": ">=19.8.0"
   },
   "dependencies": {
+    "@prisma/client": "^5.4.1",
     "node-expat": "^2.4.0"
   },
   "devDependencies": {

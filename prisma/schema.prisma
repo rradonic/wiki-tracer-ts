@@ -4,5 +4,11 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./data/wiki-tracer-ts.db"
+  url      = "file:../data/wiki-tracer-ts.db"
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
 }
