@@ -6,12 +6,7 @@ RUN apt-get install -y locales && \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales
 
-RUN apt-get install -y postgresql && \
-    echo "host all all all trust" >> /etc/postgresql/13/main/pg_hba.conf
-
-ENV POSTGRES_HOST_AUTH_METHOD=trust
-
-RUN apt-get install -y zsh tmux less
+RUN apt-get install -y zsh tmux less sqlite3
 
 # WORKDIR /workspaces/wiki-tracer-ts
 # RUN npm install

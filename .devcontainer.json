@@ -1,7 +1,6 @@
 {
   "name": "wiki-tracer-ts",
   "build": { "dockerfile": "Dockerfile" },
-  "postStartCommand": "/etc/init.d/postgresql start",
   "customizations": {
     "vscode": {
       "extensions": ["ms-azuretools.vscode-docker"]
