@@ -1,3 +1,5 @@
+import prisma from "../../prisma";
+
 import { specialArticle } from "../specialArticle";
 
 export class Page {
@@ -26,5 +28,16 @@ export class Page {
 
       result = iterator.next();
     }
+
+    this.text = undefined;
+  }
+
+  save() {
+    console.log("Saving...");
+    return prisma.page.create({
+      data: {
+        title: this.title!,
+      },
+    });
   }
 }

@@ -7,8 +7,9 @@ datasource db {
   url      = "file:../data/wiki-tracer-ts.db"
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
+model Page {
+  id         Int    @id @default(autoincrement())
+  title      String @unique
+  linkedFrom Page[] @relation("PageLink")
+  linksTo    Page[] @relation("PageLink")
 }
