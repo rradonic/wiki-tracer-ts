@@ -2,38 +2,14 @@ import { prisma } from "../../prisma";
 import { specialArticle } from "../specialArticle";
 
 export class Page {
-  title: string | undefined;
-  text: string | undefined;
-  links: Array<string> | undefined;
+  title: string;
+  links: Array<string>;
 
   private static regex = /\[\[(.+?)\]\]/g;
 
-  constructor(title: string | undefined = undefined, links: string[] | undefined = undefined) {
+  constructor(title: string, text: string) {
     this.title = title;
-    this.links = links;
-  }
-
-  processLinks() {
-    if (this.text === undefined) {
-      throw new Error("Can't process links, text is empty!");
-    }
-
-    this.links = [];
-
-    const iterator = this.text.matchAll(Page.regex);
-    let result = iterator.next();
-
-    while (!result.done) {
-      const title = result.value[1].split("|")[0].trim();
-
-      if (!specialArticle(title)) {
-        this.links.push(title);
-      }
-
-      result = iterator.next();
-    }
-
-    this.text = undefined;
+    this.links = Page.extractLinks(text);
   }
 
   save() {
@@ -54,5 +30,24 @@ export class Page {
         // },
       },
     });
+  }
+
+  private static extractLinks(text: string) {
+    const links = new Array<string>();
+
+    const iterator = text.matchAll(Page.regex);
+    let result = iterator.next();
+
+    while (!result.done) {
+      const title = result.value[1].split("|")[0].trim();
+
+      if (!specialArticle(title)) {
+        links.push(title);
+      }
+
+      result = iterator.next();
+    }
+
+    return links;
   }
 }

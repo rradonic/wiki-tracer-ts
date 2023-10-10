@@ -11,7 +11,7 @@ export function createParser() {
   let counter = 0;
 
   const stack = new SimpleStack<ParserElement>();
-  const page = new Page();
+  const pageDataHolder: Partial<Page> = {};
   let promise: PromiseLike<unknown> = Promise.resolve();
 
   parser.on("startElement", function (name: string) {
@@ -20,23 +20,19 @@ export function createParser() {
 
   parser.on("endElement", async function (name: string) {
     if (name === "title") {
-      page.title = stack.top().value;
+      pageDataHolder.title = stack.top().value;
     }
 
-    if (name === "text" && !specialArticle(page.title!)) {
+    if (name === "text" && !specialArticle(pageDataHolder.title!)) {
       counter++;
 
-      page.text = stack.top().value;
-      page.processLinks();
+      const page = new Page(pageDataHolder.title!, stack.top().value!);
 
-      console.log(`${counter}: ${page.title!.toLowerCase()}`);
-
-      // we keep overwriting the `page` variable above, so clone it before saving
-      const pageClone = new Page(page.title, page.links);
+      console.log(`${counter}: ${page.title.toLowerCase()}`);
 
       await promise;
       promise = promise.then(async () => {
-        await pageClone.save();
+        await page.save();
       });
     }
 
