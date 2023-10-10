@@ -9,4 +9,6 @@ if (!global.prisma) {
   global.prisma = new PrismaClient();
 }
 
-export default global.prisma;
+const prisma = global.prisma;
+
+export { prisma };

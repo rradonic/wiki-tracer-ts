@@ -1,8 +1,6 @@
 import fs from "fs";
 
-import prisma from "../prisma";
-import { ObservableQueue } from "./models/observableQueue";
-import { Page } from "./models/page";
+import { prisma } from "../prisma";
 import { createParser } from "./createParser";
 
 if (process.argv.length < 3) {
@@ -10,19 +8,13 @@ if (process.argv.length < 3) {
   process.exit();
 }
 
+// using then() because there's no top level await yet in node's module system
 prisma.page.deleteMany({}).then(() => {
   const readStream = fs.createReadStream(process.argv[2], {
     highWaterMark: 1024 * 1024,
   });
 
-  const queue = new ObservableQueue<Page>((queue) => {
-    console.log(`[Consumer] Queue length before splice is ${queue.length}`);
-    const removed = queue.splice(0, queue.length);
-    removed[0].save();
-    console.log(`[Consumer] Queue length after removing ${removed.length} elements is ${queue.length}`);
-  });
-
-  const parser = createParser(queue);
+  const parser = createParser();
 
   type Stringable = {
     toString(): string;
@@ -32,8 +24,7 @@ prisma.page.deleteMany({}).then(() => {
     parser.write(chunk.toString());
   });
 
-  readStream.on("end", () => {
+  readStream.on("end", async () => {
     console.log("End of file");
-    console.log(`${queue.length()} pages in the queue`);
   });
 });

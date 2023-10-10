@@ -1,5 +1,4 @@
-import prisma from "../../prisma";
-
+import { prisma } from "../../prisma";
 import { specialArticle } from "../specialArticle";
 
 export class Page {
@@ -7,7 +6,12 @@ export class Page {
   text: string | undefined;
   links: Array<string> | undefined;
 
-  private regex = /\[\[(.+?)\]\]/g;
+  private static regex = /\[\[(.+?)\]\]/g;
+
+  constructor(title: string | undefined = undefined, links: string[] | undefined = undefined) {
+    this.title = title;
+    this.links = links;
+  }
 
   processLinks() {
     if (this.text === undefined) {
@@ -16,7 +20,7 @@ export class Page {
 
     this.links = [];
 
-    const iterator = this.text.matchAll(this.regex);
+    const iterator = this.text.matchAll(Page.regex);
     let result = iterator.next();
 
     while (!result.done) {
@@ -33,10 +37,21 @@ export class Page {
   }
 
   save() {
-    console.log("Saving...");
+    console.log(`Saving ${this.title}...`);
+
+    // const links = this.links.map((link) => {
+    //   return {
+    //     a: this,
+    //     b: link,
+    //   };
+    // });
+
     return prisma.page.create({
       data: {
         title: this.title!,
+        // linksTo: {
+        //   create: links,
+        // },
       },
     });
   }

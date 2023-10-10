@@ -1,24 +1,24 @@
 import expat from "node-expat";
 
-import { ObservableQueue } from "./models/observableQueue";
 import { Page } from "./models/page";
 import { ParserElement } from "./models/parserElement";
 import { SimpleStack } from "./models/simpleStack";
 import { specialArticle } from "./specialArticle";
 
-export function createParser(queue: ObservableQueue<Page>) {
+export function createParser() {
   const parser = new expat.Parser("UTF-8");
 
   let counter = 0;
 
   const stack = new SimpleStack<ParserElement>();
   const page = new Page();
+  let promise: PromiseLike<unknown> = Promise.resolve();
 
   parser.on("startElement", function (name: string) {
     stack.push({ key: name });
   });
 
-  parser.on("endElement", function (name: string) {
+  parser.on("endElement", async function (name: string) {
     if (name === "title") {
       page.title = stack.top().value;
     }
@@ -31,7 +31,13 @@ export function createParser(queue: ObservableQueue<Page>) {
 
       console.log(`${counter}: ${page.title!.toLowerCase()}`);
 
-      queue.push(page);
+      // we keep overwriting the `page` variable above, so clone it before saving
+      const pageClone = new Page(page.title, page.links);
+
+      await promise;
+      promise = promise.then(async () => {
+        await pageClone.save();
+      });
     }
 
     stack.pop();
