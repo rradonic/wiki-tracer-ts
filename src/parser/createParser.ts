@@ -24,15 +24,13 @@ export function createParser() {
     }
 
     if (name === "text" && !specialArticle(pageDataHolder.title!)) {
-      counter++;
-
       const page = new Page(pageDataHolder.title!, stack.top().value!);
 
-      console.log(`${counter}: ${page.title.toLowerCase()}`);
+      console.log(`${++counter}: ${page.title.toLowerCase()}`);
 
-      await promise;
-      promise = promise.then(async () => {
-        await page.save();
+      // add the save call to the promise chain, the page will get saved once the previous promise completes
+      promise = promise.then(() => {
+        return page.save();
       });
     }
 
