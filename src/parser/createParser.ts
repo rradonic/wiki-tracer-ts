@@ -12,7 +12,7 @@ export function createParser() {
 
   const stack = new SimpleStack<ParserElement>();
   const pageDataHolder: Partial<Page> = {};
-  let promise: PromiseLike<unknown> = Promise.resolve();
+  let promise = Promise.resolve();
 
   parser.on("startElement", function (name: string) {
     stack.push({ key: name });

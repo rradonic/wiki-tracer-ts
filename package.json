@@ -8,7 +8,9 @@
     "load": "node --enable-source-maps dist/graph/load.js",
     "dijkstra": "node --enable-source-maps dist/graph/dijkstra.js",
     "start": "node --enable-source-maps dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db": "sqlite3 data/wiki-tracer-ts.db",
+    "queryPlayground": "node --enable-source-maps dist/queryPlayground.js"
   },
   "author": "Ranko Radonic",
   "license": "ISC",

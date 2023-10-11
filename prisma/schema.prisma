@@ -10,6 +10,15 @@ datasource db {
 model Page {
   id         Int    @id @default(autoincrement())
   title      String @unique
-  linkedFrom Page[] @relation("PageLink")
-  linksTo    Page[] @relation("PageLink")
+  linkedFrom Link[] @relation("from")
+  linksTo    Link[] @relation("to")
+}
+
+model Link {
+  from   Page @relation("from", fields: [fromId], references: [id])
+  fromId Int
+  to     Page @relation("to", fields: [toId], references: [id])
+  toId   Int
+
+  @@id([fromId, toId])
 }

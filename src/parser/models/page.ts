@@ -12,24 +12,42 @@ export class Page {
     this.links = Page.extractLinks(text);
   }
 
-  save() {
+  async save() {
     console.log(`Saving ${this.title}...`);
 
-    // const links = this.links.map((link) => {
-    //   return {
-    //     a: this,
-    //     b: link,
-    //   };
-    // });
-
-    return prisma.page.create({
-      data: {
-        title: this.title!,
-        // linksTo: {
-        //   create: links,
-        // },
+    await prisma.page.upsert({
+      where: {
+        title: this.title,
+      },
+      update: {},
+      create: {
+        title: this.title,
       },
     });
+
+    const uniqueLinks = [...new Set(this.links)];
+
+    for (const link of uniqueLinks) {
+      await prisma.link.create({
+        data: {
+          from: {
+            connect: {
+              title: this.title,
+            },
+          },
+          to: {
+            connectOrCreate: {
+              where: {
+                title: link,
+              },
+              create: {
+                title: link,
+              },
+            },
+          },
+        },
+      });
+    }
   }
 
   private static extractLinks(text: string) {
