@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.4.1",
-    "node-expat": "^2.4.0"
+    "node-expat": "^2.4.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
