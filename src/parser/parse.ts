@@ -1,7 +1,7 @@
 import fs from "fs";
 
 import { prisma } from "../prisma";
-import { createParser } from "./createParser";
+import { Parser } from "./parser";
 
 if (process.argv.length < 3) {
   console.log("Missing input file parameter.");
@@ -19,14 +19,14 @@ prisma.link
       highWaterMark: 1024 * 1024,
     });
 
-    const parser = createParser();
+    const parser = new Parser();
 
     type Stringable = {
       toString(): string;
     };
 
     readStream.on("data", (chunk: Stringable) => {
-      parser.write(chunk.toString());
+      parser.expat.write(chunk.toString());
     });
 
     readStream.on("end", async () => {

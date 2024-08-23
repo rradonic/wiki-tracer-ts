@@ -13,7 +13,8 @@ export class Page {
   }
 
   async save() {
-    console.log(`Saving ${this.title}...`);
+    console.log();
+    process.stdout.write(`Saving ${this.title}`);
 
     await prisma.page.upsert({
       where: {
@@ -28,6 +29,8 @@ export class Page {
     const uniqueLinks = [...new Set(this.links)];
 
     for (const link of uniqueLinks) {
+      process.stdout.write(".");
+
       await prisma.link.create({
         data: {
           from: {
