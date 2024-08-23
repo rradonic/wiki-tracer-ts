@@ -3,7 +3,7 @@ declare module "node-expat" {
     Parser: new (string) => ExpatParser;
   }
 
-  interface ExpatParser {
+  export interface ExpatParser {
     on: (event: string, callback: (string) => void) => void;
   }
 

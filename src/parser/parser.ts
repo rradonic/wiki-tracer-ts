@@ -1,4 +1,4 @@
-import expat from "node-expat";
+import expat, { ExpatParser } from "node-expat";
 
 import { Page } from "./models/page";
 import { ParserElement } from "./models/parserElement";
@@ -6,7 +6,7 @@ import { SimpleStack } from "./models/simpleStack";
 import { specialArticle } from "./specialArticle";
 
 export class Parser {
-  readonly expat;
+  readonly expat: ExpatParser;
   readonly stack: SimpleStack<ParserElement>;
   readonly pageDataHolder: Partial<Page>;
   counter: number;
