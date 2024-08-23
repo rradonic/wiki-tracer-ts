@@ -1,9 +1,9 @@
 declare module "node-expat" {
-  interface Expat {
+  declare interface Expat {
     Parser: new (string) => ExpatParser;
   }
 
-  export interface ExpatParser {
+  export declare interface ExpatParser {
     on: (event: string, callback: (string) => void) => void;
   }
 
