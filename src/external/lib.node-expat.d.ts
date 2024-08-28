@@ -5,6 +5,7 @@ declare module "node-expat" {
 
   export declare interface ExpatParser {
     on: (event: string, callback: (string) => void) => void;
+    write: (string) => void;
   }
 
   const expat: Expat;
