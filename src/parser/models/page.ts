@@ -4,17 +4,19 @@ import { specialArticle } from "../specialArticle";
 export class Page {
   title: string;
   links: Array<string>;
+  index: number;
 
   private static regex = /\[\[(.+?)\]\]/g;
 
-  constructor(title: string, text: string) {
+  constructor(title: string, text: string, index: number) {
     this.title = title.toLowerCase();
     this.links = Page.extractLinks(text);
+    this.index = index;
   }
 
   async save() {
     console.log();
-    process.stdout.write(`Saving ${this.title}`);
+    process.stdout.write(`Storing ${this.title} (${this.index})`);
 
     await prisma.page.upsert({
       where: {
