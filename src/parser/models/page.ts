@@ -8,7 +8,7 @@ export class Page {
   private static regex = /\[\[(.+?)\]\]/g;
 
   constructor(title: string, text: string) {
-    this.title = title;
+    this.title = title.toLowerCase();
     this.links = Page.extractLinks(text);
   }
 
@@ -63,7 +63,7 @@ export class Page {
       const title = result.value[1].split("|")[0].trim();
 
       if (!specialArticle(title)) {
-        links.push(title);
+        links.push(title.toLowerCase());
       }
 
       result = iterator.next();

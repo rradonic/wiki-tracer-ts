@@ -31,7 +31,7 @@ export class Parser {
       if (name === "text" && !specialArticle(this.pageDataHolder.title!)) {
         const page = new Page(this.pageDataHolder.title!, this.stack.top().value!);
 
-        console.log(`${++this.counter}: ${page.title.toLowerCase()}`);
+        console.log(`${++this.counter}: ${page.title} (${page.links})`);
 
         // add the save call to the promise chain, the page will get saved once the previous promise completes
         this.promise = this.promise.then(() => {
