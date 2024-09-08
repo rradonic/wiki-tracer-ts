@@ -31,6 +31,13 @@ export class Parser {
       if (name === "text" && !specialArticle(this.pageDataHolder.title!)) {
         this.counter++;
 
+        console.log(this.counter);
+
+        if (this.counter > 100) {
+          console.log("Finishing");
+          return;
+        }
+
         const page = new Page(this.pageDataHolder.title!, this.stack.top().value!, this.counter);
 
         // add the save call to the promise chain, the page will get saved once the previous promise completes

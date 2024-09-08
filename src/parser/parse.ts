@@ -18,5 +18,9 @@ type Stringable = {
 };
 
 readStream.on("data", (chunk: Stringable) => {
+  if (parser.counter > 100) {
+    readStream.destroy();
+  }
+
   parser.expat.write(chunk.toString());
 });
