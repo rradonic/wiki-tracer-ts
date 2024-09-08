@@ -34,9 +34,9 @@ import { prisma } from "./prisma";
 //     });
 //   });
 
-prisma.page.deleteMany({}).then(() => {
-  console.log("wfp");
-});
+// prisma.page.deleteMany({}).then(() => {
+//   console.log("wfp");
+// });
 
 // prisma.page
 //   .create({
@@ -57,3 +57,7 @@ prisma.page.deleteMany({}).then(() => {
 //   .then(() => {
 //     console.log("Done!");
 //   });
+
+prisma.page.findFirst({ where: { title: "april" } }).then((result) => {
+  console.log(result);
+});

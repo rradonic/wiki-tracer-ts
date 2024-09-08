@@ -15,8 +15,26 @@ export class Page {
   }
 
   async save() {
-    console.log();
-    process.stdout.write(`Storing ${this.title} (${this.index})`);
+    const existingRecord = await prisma.page.findFirst({
+      where: {
+        title: this.title,
+      },
+    });
+
+    if (existingRecord?.complete) {
+      console.log(`Skipping ${this.title} (${this.index})`);
+      return;
+    }
+
+    process.stdout.write(`Saving ${this.title} (${this.index})`);
+
+    if (existingRecord) {
+      await prisma.link.deleteMany({
+        where: {
+          fromId: existingRecord.id,
+        },
+      });
+    }
 
     await prisma.page.upsert({
       where: {
@@ -53,6 +71,17 @@ export class Page {
         },
       });
     }
+
+    await prisma.page.update({
+      where: {
+        title: this.title,
+      },
+      data: {
+        complete: true,
+      },
+    });
+
+    console.log();
   }
 
   private static extractLinks(text: string) {
