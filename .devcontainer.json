@@ -6,7 +6,6 @@
       "extensions": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "Prisma.prisma",
         "fabiospampinato.vscode-open-in-github"
       ]
     }
