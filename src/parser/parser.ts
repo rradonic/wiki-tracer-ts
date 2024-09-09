@@ -31,12 +31,11 @@ export class Parser {
       if (name === "text" && !specialArticle(this.pageDataHolder.title!)) {
         this.counter++;
 
-        console.log(this.counter);
-
         if (this.counter > 100) {
-          console.log("Finishing");
           return;
         }
+
+        console.log(this.counter);
 
         const page = new Page(this.pageDataHolder.title!, this.stack.top().value!, this.counter);
 
