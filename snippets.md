@@ -2,9 +2,9 @@
 
 `sqlite3 data/wiki-tracer-ts.db`
 
-### Prisma
+### Knex
 
-`npx prisma migrate dev --name <name>`
+TODO
 
 ### Parse
 
