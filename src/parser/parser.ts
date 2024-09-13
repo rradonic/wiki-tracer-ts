@@ -37,7 +37,11 @@ export class Parser {
 
         console.log(this.counter);
 
-        const page = new Page(this.pageDataHolder.title!, this.stack.top().value!, this.counter);
+        const page = new Page({
+          title: this.pageDataHolder.title!,
+          text: this.stack.top().value!,
+          index: this.counter,
+        });
 
         // add the save call to the promise chain, the page will get saved once the previous promise completes
         this.promise = this.promise.then(() => {

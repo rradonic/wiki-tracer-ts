@@ -1,6 +1,6 @@
-import { knex } from "knex";
+import { knex as knex_ } from "knex";
 
-export default knex({
+export const knex = knex_({
   client: "better-sqlite3",
   connection: {
     filename: "../data/wiki-tracer-ts.sqlite",
