@@ -13,8 +13,5 @@
       ]
     }
   },
-  "workspaceFolder": "/workspace",
-
-  // workaround for git's "dubious permissions" issue with virtiofs
-  // "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+  "workspaceFolder": "/workspace"
 }
