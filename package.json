@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clearDb": "node --enable-source-maps dist/clearDb.js",
-    "parse": "node --enable-source-maps --max-old-space-size=512 dist/parser/parse.js",
+    "parse": "node --enable-source-maps dist/parser/parse.js",
     "load": "node --enable-source-maps dist/graph/load.js",
     "dijkstra": "node --enable-source-maps dist/graph/dijkstra.js",
     "start": "node --enable-source-maps dist/index.js",
