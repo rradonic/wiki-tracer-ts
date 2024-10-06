@@ -46,10 +46,6 @@ export class Page {
 
     const uniqueLinks = [...new Set(Page.extractLinks(this.text))];
 
-    if (this.title === "qatar–saudi arabia diplomatic conflict") {
-      console.log(this.text);
-    }
-
     await prisma.link.createMany({
       data: uniqueLinks.map((link) => {
         return {
