@@ -12,7 +12,7 @@ model Page {
   title    String  @unique
   complete Boolean @default(false)
 
-  @@index(complete)
+  @@index([complete])
 }
 
 model Link {
@@ -20,6 +20,6 @@ model Link {
   from String
   to   String
 
-  @@index(from)
-  @@index(to)
+  @@index([from])
+  @@index([to])
 }

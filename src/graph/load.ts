@@ -8,7 +8,6 @@ const nodes = new Array<GraphNode>();
 let currentNode: GraphNode | undefined;
 
 let cursor: { id: number };
-let counter = 0;
 
 // TODO try doing this as a generator
 async function fetchBatch() {
@@ -33,9 +32,7 @@ async function fetchBatch() {
 }
 
 function next(batch: Page[]): Promise<Page[]> {
-  counter++;
   process.stdout.write(".");
-  console.log(counter);
 
   if (cursor && batch.length === 0) {
     return Promise.resolve([]);
