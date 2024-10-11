@@ -12,9 +12,7 @@ export class PageLoader {
   }
 
   async load() {
-    const nodes = await Promise.resolve([]);
-    await this.next(nodes);
-
+    await this.next([]);
     console.log(this.nodes.length);
   }
 
