@@ -29,7 +29,7 @@ export class Parser {
     this.readStream = readStream;
   }
 
-  registerCallbacks() {
+  parse() {
     this.registerExpatCallbacks();
     this.registerReadStreamCallbacks();
   }
@@ -59,7 +59,7 @@ export class Parser {
         const counterCopy = this.counter;
 
         // add the save call to the promise chain, the page will get saved once the previous
-        // promise completes
+        // promise completes. TODO: convert this to recursion maybe.
         this.promise = this.promise.then(() => {
           this.queueSize--;
 

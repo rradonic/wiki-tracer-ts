@@ -12,4 +12,4 @@ const readStream = fs.createReadStream(process.argv[2], {
 });
 
 const parser = new Parser(readStream);
-parser.registerCallbacks();
+parser.parse();

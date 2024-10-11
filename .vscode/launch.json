@@ -10,6 +10,15 @@
       "outputCapture": "std"
     },
     {
+      "name": "Launch Graph Loading",
+      "request": "launch",
+      "runtimeArgs": ["run", "load"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "outputCapture": "std"
+    },
+    {
       "name": "Launch Playground",
       "request": "launch",
       "runtimeArgs": ["run", "playground"],
