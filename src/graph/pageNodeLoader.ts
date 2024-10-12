@@ -3,17 +3,19 @@ import { Page } from "@prisma/client";
 
 import { GraphNode } from "./models/graphNode";
 
-export class PageLoader {
+export class PageNodeLoader {
   readonly nodes;
   cursor: { id: number } | undefined;
+  counter = 0;
 
   constructor() {
     this.nodes = new Array<GraphNode>();
   }
 
   async load() {
+    console.log("Loading pages");
+
     await this.next([]);
-    console.log(this.nodes.length);
   }
 
   // TODO: try doing this as a generator
@@ -39,6 +41,8 @@ export class PageLoader {
   }
 
   private async next(batch: Page[]): Promise<Page[]> {
+    this.counter++;
+
     if (this.cursor && batch.length === 0) {
       return Promise.resolve([]);
     }
