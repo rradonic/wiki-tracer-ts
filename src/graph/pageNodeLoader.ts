@@ -2,26 +2,33 @@ import { prisma } from "../prisma";
 import { Page } from "@prisma/client";
 
 import { GraphNode } from "./models/graphNode";
+import { BATCH_SIZE } from "./constants";
 
 export class PageNodeLoader {
-  readonly nodes;
+  // using a Map here for fast node lookup, we need it while linking the nodes
+  readonly nodes: Map<string, GraphNode>;
   cursor: { id: number } | undefined;
-  counter = 0;
+  counter;
 
   constructor() {
-    this.nodes = new Array<GraphNode>();
+    this.nodes = new Map<string, GraphNode>();
+    this.counter = 0;
   }
 
   async load() {
     console.log("Loading pages");
 
-    await this.next([]);
+    const nodes = await this.next([]);
+
+    console.log();
+
+    return nodes;
   }
 
   // TODO: try doing this as a generator
   private async fetchPageBatch() {
     const batch = await prisma.page.findMany({
-      take: 5000,
+      take: BATCH_SIZE,
       skip: this.cursor ? 1 : 0,
       cursor: this.cursor ?? undefined,
       orderBy: {
@@ -50,7 +57,7 @@ export class PageNodeLoader {
     process.stdout.write(".");
 
     batch.forEach((page) => {
-      this.nodes.push(new GraphNode(page.title));
+      this.nodes.set(page.title, new GraphNode(page.title));
     });
 
     const nextBatch = await this.fetchPageBatch();

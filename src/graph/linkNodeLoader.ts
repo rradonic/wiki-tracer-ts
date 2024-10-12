@@ -1,36 +1,48 @@
 import { prisma } from "../prisma";
-import { Link } from "@prisma/client";
 
 import { GraphNode } from "./models/graphNode";
-import { findNode } from "./findNode";
+import { BATCH_SIZE, LINK_LOAD_LIMIT } from "./constants";
 
 export class LinkNodeLoader {
-  readonly nodes: GraphNode[];
-  counter = 0;
+  readonly nodes: Map<string, GraphNode>;
 
-  constructor(nodes: GraphNode[]) {
+  constructor(nodes: Map<string, GraphNode>) {
     this.nodes = nodes;
   }
 
   async load() {
     console.log("Loading links");
 
-    for (const node of this.nodes) {
-      this.counter++;
+    const nodes = this.nodes.values();
 
-      process.stdout.write(`${this.counter} ${node.name}`);
+    for (let i = 0; i < Math.min(this.nodes.size, LINK_LOAD_LIMIT); i++) {
+      const node = nodes.next().value!;
 
-      await this.fetchLinks(node);
+      if (i % BATCH_SIZE === 0) {
+        process.stdout.write(`.`);
+      }
+
+      const links = await this.fetchLinks(node);
+
+      links.forEach((link) => {
+        const to = this.nodes.get(link.to);
+
+        if (to) {
+          node.addEdge(to, 1);
+        }
+      });
     }
+
+    console.log(".");
   }
 
   private async fetchLinks(node: GraphNode) {
-    const batch = await prisma.link.findMany({
+    const links = await prisma.link.findMany({
       where: {
         from: node.name,
       },
     });
 
-    console.log(` (${batch.length} links)`);
+    return links;
   }
 }
