@@ -3,9 +3,12 @@ import { LinkNodeLoader } from "./linkNodeLoader";
 
 const pageNodeLoader = new PageNodeLoader();
 
-pageNodeLoader.load().then(() => {
+pageNodeLoader.load().then(async () => {
   console.log();
 
   const linkNodeLoader = new LinkNodeLoader(pageNodeLoader.nodes);
-  linkNodeLoader.load();
+
+  await linkNodeLoader.load();
+
+  console.log(linkNodeLoader.nodes);
 });

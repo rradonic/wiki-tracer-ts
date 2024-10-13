@@ -2,7 +2,7 @@ import { prisma } from "../prisma";
 import { Page } from "@prisma/client";
 
 import { GraphNode } from "./models/graphNode";
-import { BATCH_SIZE } from "./constants";
+import { BATCH_SIZE, PAGE_LOAD_LIMIT } from "./constants";
 
 export class PageNodeLoader {
   // using a Map here for fast node lookup, we need it while linking the nodes
@@ -31,9 +31,6 @@ export class PageNodeLoader {
       take: BATCH_SIZE,
       skip: this.cursor ? 1 : 0,
       cursor: this.cursor ?? undefined,
-      orderBy: {
-        title: "asc",
-      },
     });
 
     const last = batch.at(-1);
@@ -50,7 +47,7 @@ export class PageNodeLoader {
   private async next(batch: Page[]): Promise<Page[]> {
     this.counter++;
 
-    if (this.cursor && batch.length === 0) {
+    if ((this.cursor && batch.length === 0) || this.counter > PAGE_LOAD_LIMIT) {
       return Promise.resolve([]);
     }
 
