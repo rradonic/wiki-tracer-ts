@@ -56,7 +56,7 @@ export class LinkNodeLoader {
       const to = this.nodes.get(link.to);
 
       if (from && to) {
-        from.addEdge(to, 1);
+        from.addNeighbor(to);
       }
     });
 

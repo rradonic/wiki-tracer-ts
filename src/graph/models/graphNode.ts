@@ -1,9 +1,6 @@
-import { GraphEdge } from "./graphEdge";
-
 export class GraphNode {
   name: string;
-  edges: Array<GraphEdge> = [];
-  distance = Number.MAX_SAFE_INTEGER;
+  neighbors: Array<GraphNode> = [];
   previous: GraphNode | null = null;
   visited = false;
 
@@ -11,11 +8,11 @@ export class GraphNode {
     this.name = name;
   }
 
-  addEdge(node: GraphNode, weight: number) {
-    this.edges.push(new GraphEdge(node, weight));
+  addNeighbor(node: GraphNode) {
+    this.neighbors.push(node);
   }
 
-  unvisitedEdges() {
-    return this.edges.filter((edge) => !edge.neighbor.visited);
+  unvisitedNeighbors() {
+    return this.neighbors.filter((neighbor) => !neighbor.visited);
   }
 }

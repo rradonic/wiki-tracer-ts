@@ -10,9 +10,9 @@
       "outputCapture": "std"
     },
     {
-      "name": "Launch Graph Loading",
+      "name": "Launch Search",
       "request": "launch",
-      "runtimeArgs": ["run", "load"],
+      "runtimeArgs": ["run", "search"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
