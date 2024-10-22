@@ -16,5 +16,5 @@ pageNodeLoader.load().then(async () => {
   const endNode = linkNodeLoader.nodes.get("argentina");
 
   const path = bfs(startNode!, endNode!);
-  console.log(path);
+  console.log(path.map((page) => page.name));
 });
