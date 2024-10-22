@@ -12,8 +12,10 @@ pageNodeLoader.load().then(async () => {
 
   await linkNodeLoader.load();
 
+  console.log();
+
   const startNode = linkNodeLoader.nodes.get("bread");
-  const endNode = linkNodeLoader.nodes.get("argentina");
+  const endNode = linkNodeLoader.nodes.get("bench press");
 
   const path = bfs(startNode!, endNode!);
   console.log(path.map((page) => page.name));

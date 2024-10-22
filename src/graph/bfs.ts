@@ -9,14 +9,16 @@ export function bfs(startNode: GraphNode, endNode: GraphNode) {
   while (queue.length > 0) {
     const currentNode = queue.shift()!;
 
+    if (currentNode === endNode) {
+      break;
+    }
+
     currentNode.unvisitedNeighbors().forEach((neighbor) => {
       neighbor.visited = true;
       queue.push(neighbor);
       neighbor.previous = currentNode;
     });
   }
-
-  console.log();
 
   const path = [];
 
