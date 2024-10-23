@@ -3,3 +3,5 @@ dist
 data
 .env
 src/playground.ts
+.next
+next-env.d.ts
