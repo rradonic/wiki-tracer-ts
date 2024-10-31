@@ -2,14 +2,14 @@
   "name": "wiki-tracer-ts",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "clearDb": "node --enable-source-maps dist/clearDb.js",
     "parse": "node --enable-source-maps dist/parser/parse.js",
     "search": "node --enable-source-maps dist/graph/search.js",
     "bfs": "node --enable-source-maps dist/graph/bfs.js",
     "db": "sqlite3 data/wiki-tracer-ts.db",
-    "playground": "node --enable-source-maps dist/playground.js"
+    "playground": "node --enable-source-maps dist/playground.js",
+    "bundle": "esbuild src/pages/index.tsx --bundle --outfile=dist/pages/index.js --sourcemap --watch"
   },
   "author": "Ranko Radonic",
   "license": "ISC",
@@ -19,12 +19,18 @@
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",
-    "node-expat": "^2.4.1"
+    "express": "^4.21.1",
+    "node-expat": "^2.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
+    "esbuild": "^0.24.0",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "prettier": "^3.3.3",
