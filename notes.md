@@ -4,7 +4,7 @@
 
 - Run this as a vscode Task to get project wide error reporting in vscode
 
-2. Run `npm run bundle` to compile and bundle the front end into dist/
+2. Run `npm run bundle -- --watch` to compile and bundle the front end into dist/pages/
 
 3. Run `node --watch dist/index.js` to run the Express server
 

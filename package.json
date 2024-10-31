@@ -9,7 +9,7 @@
     "bfs": "node --enable-source-maps dist/graph/bfs.js",
     "db": "sqlite3 data/wiki-tracer-ts.db",
     "playground": "node --enable-source-maps dist/playground.js",
-    "bundle": "esbuild src/pages/index.tsx --bundle --outfile=dist/pages/index.js --sourcemap --watch"
+    "bundle": "esbuild src/pages/index.tsx --bundle --target=es6 --outfile=dist/pages/index.js --sourcemap"
   },
   "author": "Ranko Radonic",
   "license": "ISC",
