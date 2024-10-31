@@ -2,11 +2,13 @@
 
 1. Run `tsc --watch` to compile the back end typescript into dist/
 
-- Run this as a vscode Task to get project wide error reporting in vscode
+   - Run this as a vscode Task to get project wide error reporting in vscode
 
 2. Run `npm run bundle -- --watch` to compile and bundle the front end into dist/pages/
 
-3. Run `node --watch dist/index.js` to run the Express server
+3. Run `npm run tailwind` to run the Tailwind build process
+
+4. Run `node --watch dist/index.js` to run the Express server
 
 ### Issues encountered
 

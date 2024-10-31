@@ -9,7 +9,8 @@
     "bfs": "node --enable-source-maps dist/graph/bfs.js",
     "db": "sqlite3 data/wiki-tracer-ts.db",
     "playground": "node --enable-source-maps dist/playground.js",
-    "bundle": "esbuild src/pages/index.tsx --bundle --target=es6 --outfile=dist/pages/index.js --sourcemap"
+    "bundle": "esbuild src/pages/index.tsx --bundle --target=es6 --outfile=dist/pages/index.js --sourcemap",
+    "tailwind": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
   },
   "author": "Ranko Radonic",
   "license": "ISC",
@@ -22,7 +23,8 @@
     "express": "^4.21.1",
     "node-expat": "^2.4.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.14"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
