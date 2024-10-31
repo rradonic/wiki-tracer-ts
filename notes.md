@@ -1,3 +1,13 @@
+### Running instructions
+
+1. Run `tsc --watch` to compile the back end typescript into dist/
+
+- Run this as a vscode Task to get project wide error reporting in vscode
+
+2. Run `npm run bundle` to compile and bundle the front end into dist/
+
+3. Run `node --watch dist/index.js` to run the Express server
+
 ### Issues encountered
 
 #### Memory exhaustion
