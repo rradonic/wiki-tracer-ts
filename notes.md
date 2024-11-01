@@ -1,6 +1,6 @@
 ### Running instructions
 
-1. Run `tsc --watch` to compile the back end typescript into dist/
+1. Run `npx tsc --watch` to compile the back end typescript into dist/
 
    - Run this as a vscode Task to get project wide error reporting in vscode
 
@@ -8,7 +8,7 @@
 
 3. Run `npm run tailwind` to run the Tailwind build process
 
-4. Run `node --watch dist/index.js` to run the Express server
+4. Run `node --watch dist/server.js` to run the Express server
 
 ### Issues encountered
 

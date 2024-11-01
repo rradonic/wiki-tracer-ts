@@ -3,7 +3,7 @@ import { FormEvent } from "react";
 async function onSubmit(evt: FormEvent<HTMLFormElement>) {
   evt.preventDefault();
 
-  const response = await fetch("/api/search");
+  const response = await fetch("/search");
 
   if (!response.ok) {
     throw new Error(`Response status: ${response.status}`);
