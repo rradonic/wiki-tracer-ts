@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 
 import { load } from "./graph/load";
+import { bfs } from "./graph/bfs";
 
 const app = express();
 const port = 3000;
@@ -14,13 +15,19 @@ load().then((linkNodeLoader) => {
   });
 
   app.get("/search", (req, res) => {
-    // const startNode = linkNodeLoader.nodes.get("bread");
-    // const endNode = linkNodeLoader.nodes.get("bench press");
+    const nodes = linkNodeLoader.nodes;
 
-    // const path = bfs(startNode!, endNode!);
-    // console.log(path.map((page) => page.name));
+    nodes.forEach((node) => {
+      node.previous = null;
+      node.visited = false;
+    });
 
-    res.json({ path: ["test1", "test2"], graphSize: linkNodeLoader.nodes.size });
+    const startNode = nodes.get(req.query.startPage as string);
+    const endNode = nodes.get(req.query.endPage as string);
+
+    const path = bfs(startNode!, endNode!);
+
+    res.json({ path: path.map((page) => page.name) });
   });
 
   app.listen(port, () => {

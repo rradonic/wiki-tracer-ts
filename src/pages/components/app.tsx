@@ -3,7 +3,11 @@ import { FormEvent } from "react";
 async function onSubmit(evt: FormEvent<HTMLFormElement>) {
   evt.preventDefault();
 
-  const response = await fetch("/search");
+  const form = evt.currentTarget;
+  const startPage = (form["start-page"] as HTMLInputElement).value;
+  const endPage = (form["end-page"] as HTMLInputElement).value;
+
+  const response = await fetch("/search?" + new URLSearchParams({ startPage, endPage }));
 
   if (!response.ok) {
     throw new Error(`Response status: ${response.status}`);
@@ -31,10 +35,10 @@ export default function App() {
 
           <ul className="list-disc ml-4 mb-4">
             <li>
-              How many jumps from the Wikipedia article about HALLOWEEN to the one about
-              TRANSISTORS?
+              How many jumps from the Wikipedia article about GUACAMOLE to the one about the
+              TRANSISTOR?
             </li>
-            <li>How about from CAMELS to WAYNE GRETZKY?</li>
+            <li>How about from TOYOTA to WAYNE GRETZKY?</li>
           </ul>
 
           <p className="mb-4">Let's find out.</p>
