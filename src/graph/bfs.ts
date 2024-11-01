@@ -29,6 +29,10 @@ export function bfs(startNode: GraphNode, endNode: GraphNode) {
     node = node.previous;
   }
 
+  if (path.length === 0) {
+    return [];
+  }
+
   path.push(startNode);
 
   return path.reverse();
