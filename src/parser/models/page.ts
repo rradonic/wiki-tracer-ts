@@ -68,7 +68,7 @@ export class Page {
   }
 
   private static extractLinks(text: string) {
-    const links = new Array<string>();
+    const links: string[] = [];
 
     const textWithoutCoordinates = text.replace(
       /"coordinates": (.+?)}/gm,

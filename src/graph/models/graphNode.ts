@@ -1,6 +1,6 @@
 export class GraphNode {
   name: string;
-  neighbors: Array<GraphNode> = [];
+  neighbors: GraphNode[] = [];
   previous: GraphNode | null = null;
   visited = false;
 
