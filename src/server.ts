@@ -9,9 +9,10 @@ const port = 3000;
 
 load().then((linkNodeLoader) => {
   app.use("/dist", express.static(path.resolve(__dirname)));
+  app.use("/public", express.static(path.resolve(__dirname + "/../public")));
 
   app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname + "/../src/pages/index.html"));
+    res.sendFile(path.resolve(__dirname + "/../public/index.html"));
   });
 
   app.get("/search", (req, res) => {
@@ -22,8 +23,11 @@ load().then((linkNodeLoader) => {
       node.visited = false;
     });
 
-    const startNode = nodes.get(req.query.startPage as string);
-    const endNode = nodes.get(req.query.endPage as string);
+    const startNodeName = req.query.startPage as string;
+    const endNodeName = req.query.endPage as string;
+
+    const startNode = nodes.get(startNodeName.toLowerCase());
+    const endNode = nodes.get(endNodeName.toLowerCase());
 
     const path = bfs(startNode!, endNode!);
 
