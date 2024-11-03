@@ -4,26 +4,30 @@ import { FormEvent, useState } from "react";
 import Spinner from "./spinner";
 import Results from "./results";
 
-async function onSubmit(evt: FormEvent<HTMLFormElement>) {
-  evt.preventDefault();
-
-  const form = evt.currentTarget;
-  const startPage = (form["start-page"] as HTMLInputElement).value;
-  const endPage = (form["end-page"] as HTMLInputElement).value;
-
-  const response = await fetch("/search?" + new URLSearchParams({ startPage, endPage }));
-
-  if (!response.ok) {
-    throw new Error(`Response status: ${response.status}`);
-  }
-
-  const json = await response.json();
-  console.log(json);
-}
-
 export default function App() {
   const [searching, setSearching] = useState(false);
-  const [path, setPath] = useState(["test1", "test2"]);
+  const [path, setPath] = useState<string[] | Error>([]);
+
+  async function onSubmit(evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+
+    const form = evt.currentTarget;
+    const startPage = (form["start-page"] as HTMLInputElement).value;
+    const endPage = (form["end-page"] as HTMLInputElement).value;
+
+    try {
+      const response = await fetch("/search?" + new URLSearchParams({ startPage, endPage }));
+
+      if (response.ok) {
+        const json = await response.json();
+        setPath(json.path);
+      } else {
+        setPath(new Error("Response was not in the 200 range"));
+      }
+    } catch (err) {
+      setPath(new Error("Network error"));
+    }
+  }
 
   return (
     <div
@@ -33,7 +37,12 @@ export default function App() {
       }
     >
       <div className="col-span-2">
-        <object data="/public/wikipedia-logo.svg" className="mb-4"></object>
+        <object
+          data="/public/wikipedia-logo.svg"
+          width="100px"
+          height="100px"
+          className="mb-4"
+        ></object>
         <h1 className="text-2xl mb-4 font-bold">Wikipedia Tracer</h1>
 
         <div className="text-sm">
