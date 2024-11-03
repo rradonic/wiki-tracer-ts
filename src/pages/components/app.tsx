@@ -73,12 +73,12 @@ export default function App() {
         <label htmlFor="start-page" className="mr-4 mb-1 text-sm block">
           Start page:
         </label>
-        <input type="text" id="start-page" className="w-64 p-1.5 mb-1 rounded-sm block"></input>
+        <input type="text" id="start-page" className="w-64 py-1.5 px-2 mb-1 rounded-sm block" />
 
         <label htmlFor="end-page" className="mr-4 mb-1 text-sm">
           End page:
         </label>
-        <input type="text" id="end-page" className="w-64 p-1.5 rounded-sm block"></input>
+        <input type="text" id="end-page" className="w-64 py-1.5 px-2 rounded-sm block" />
 
         <button
           type="submit"
