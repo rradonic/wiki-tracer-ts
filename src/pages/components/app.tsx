@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { FormEvent, useState } from "react";
 
 import Spinner from "./spinner";
+import Results from "./results";
 
 async function onSubmit(evt: FormEvent<HTMLFormElement>) {
   evt.preventDefault();
@@ -22,11 +23,12 @@ async function onSubmit(evt: FormEvent<HTMLFormElement>) {
 
 export default function App() {
   const [searching, setSearching] = useState(false);
+  const [path, setPath] = useState(["test1", "test2"]);
 
   return (
     <div
       className={
-        "grid gap-2 grid-cols-2 text-slate-600 bg-slate-100 max-w-xl mx-auto p-10 rounded-lg " +
+        "flex flex-col text-slate-600 bg-slate-100 max-w-xl mx-auto p-10 rounded-lg " +
         "shadow-md mt-6"
       }
     >
@@ -40,37 +42,34 @@ export default function App() {
           </p>
 
           <ul className="list-disc ml-4 mb-4">
-            <li className="mb-1.5">
+            <li className="mb-0.5">
               How many jumps from the Wikipedia article about GUACAMOLE to the one about the
               TRANSISTOR?
             </li>
             <li>How about from TOYOTA to WAYNE GRETZKY?</li>
           </ul>
 
-          <p className="mb-2">Let's find out.</p>
+          <p className="mb-4">Let's find out.</p>
         </div>
       </div>
 
       <form
+        className="mb-4"
         onSubmit={async (evt) => {
           setSearching(true);
           await onSubmit(evt);
           setSearching(false);
         }}
       >
-        <div className="mb-2">
-          <label htmlFor="start-page" className="mr-4 text-sm">
-            Start page:
-          </label>
-          <input type="text" id="start-page" className="w-64 mt-0.5 p-1.5 rounded-sm"></input>
-        </div>
+        <label htmlFor="start-page" className="mr-4 mb-1 text-sm block">
+          Start page:
+        </label>
+        <input type="text" id="start-page" className="w-64 p-1.5 mb-1 rounded-sm block"></input>
 
-        <div>
-          <label htmlFor="end-page" className="mr-4 text-sm">
-            End page:
-          </label>
-          <input type="text" id="end-page" className="w-64 mt-0.5 p-1.5 rounded-sm"></input>
-        </div>
+        <label htmlFor="end-page" className="mr-4 mb-1 text-sm">
+          End page:
+        </label>
+        <input type="text" id="end-page" className="w-64 p-1.5 rounded-sm block"></input>
 
         <button
           type="submit"
@@ -80,11 +79,11 @@ export default function App() {
           disabled={searching}
         >
           <Spinner show={searching} />
-          <span className={classNames({ inline: !searching, hidden: searching })}>Search</span>
+          <span className={classNames({ hidden: searching })}>Search</span>
         </button>
       </form>
 
-      <Results />
+      <Results path={path} />
     </div>
   );
 }
