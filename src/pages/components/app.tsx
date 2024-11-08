@@ -18,17 +18,11 @@ export default function App() {
     const startPage = (form["start-page"] as HTMLInputElement).value;
     const endPage = (form["end-page"] as HTMLInputElement).value;
 
-    try {
-      const response = await fetch("/search?" + new URLSearchParams({ startPage, endPage }));
+    const response = await fetch("/search?" + new URLSearchParams({ startPage, endPage }));
 
-      if (response.ok) {
-        const json = await response.json();
-        setPath(json.path);
-      } else {
-        setPath(new Error("Response was not in the 200 range"));
-      }
-    } catch (err) {
-      setPath(new Error("Network error"));
+    if (response.ok) {
+      const json = await response.json();
+      setPath(json.path);
     }
 
     setSearching(false);

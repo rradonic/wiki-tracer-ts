@@ -9,9 +9,3 @@ export const debounce = <T>(target: (evt: T) => void, delay: number) => {
     }, delay);
   };
 };
-
-// function wfp<T>(p: T) {
-//   console.log(p);
-// }
-
-// wfp("234");

@@ -11,7 +11,7 @@ load().then((linkNodeLoader) => {
   app.use("/dist", express.static(path.resolve(__dirname)));
   app.use("/public", express.static(path.resolve(__dirname + "/../public")));
 
-  app.get("/", (req, res) => {
+  app.get("/", (_req, res) => {
     res.sendFile(path.resolve(__dirname + "/../public/index.html"));
   });
 
@@ -32,6 +32,12 @@ load().then((linkNodeLoader) => {
     const path = bfs(startNode!, endNode!);
 
     res.json({ path: path.map((page) => page.name) });
+  });
+
+  app.get("/suggest", (req, res) => {
+    const input = req.query.input;
+
+    res.json({ suggestions: [input + "2"] });
   });
 
   app.listen(port, () => {

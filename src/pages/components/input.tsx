@@ -2,15 +2,20 @@ import { ChangeEvent, useEffect, useState } from "react";
 
 import { debounce } from "../helpers/debounce";
 
-const autoSuggest = debounce((value) => {
-  console.log(value);
+const suggest = debounce(async (value: string) => {
+  const response = await fetch("/suggest?" + new URLSearchParams({ input: value }));
+
+  if (response.ok) {
+    const json = await response.json();
+    console.log(json);
+  }
 }, 500);
 
 export default function Input({ id, label }: InputProps) {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    autoSuggest(value);
+    suggest(value);
   }, [value]);
 
   function onChange(evt: ChangeEvent<HTMLInputElement>) {
