@@ -3,12 +3,15 @@ import { FormEvent, useState } from "react";
 
 import Spinner from "./spinner";
 import Results from "./results";
+import Input from "./input";
 
 export default function App() {
   const [searching, setSearching] = useState(false);
   const [path, setPath] = useState<string[] | Error>([]);
 
   async function onSubmit(evt: FormEvent<HTMLFormElement>) {
+    setSearching(true);
+
     evt.preventDefault();
 
     const form = evt.currentTarget;
@@ -27,6 +30,8 @@ export default function App() {
     } catch (err) {
       setPath(new Error("Network error"));
     }
+
+    setSearching(false);
   }
 
   return (
@@ -62,23 +67,9 @@ export default function App() {
         </div>
       </div>
 
-      <form
-        className="mb-4"
-        onSubmit={async (evt) => {
-          setSearching(true);
-          await onSubmit(evt);
-          setSearching(false);
-        }}
-      >
-        <label htmlFor="start-page" className="mr-4 mb-1 text-sm block">
-          Start page:
-        </label>
-        <input type="text" id="start-page" className="w-64 py-1.5 px-2 mb-1 rounded-sm block" />
-
-        <label htmlFor="end-page" className="mr-4 mb-1 text-sm">
-          End page:
-        </label>
-        <input type="text" id="end-page" className="w-64 py-1.5 px-2 rounded-sm block" />
+      <form className="mb-4" onSubmit={onSubmit}>
+        <Input id="start-page" label="Start page:" />
+        <Input id="end-page" label="End page:" />
 
         <button
           type="submit"
