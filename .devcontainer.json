@@ -9,7 +9,8 @@
         "esbenp.prettier-vscode",
         "Prisma.prisma",
         "fabiospampinato.vscode-open-in-github",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "bradlc.vscode-tailwindcss"
       ]
     }
   },
