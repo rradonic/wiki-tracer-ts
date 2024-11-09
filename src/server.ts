@@ -7,7 +7,7 @@ import { bfs } from "./graph/bfs";
 const app = express();
 const port = 3000;
 
-load().then((linkNodeLoader) => {
+load().then((nodes) => {
   app.use("/dist", express.static(path.resolve(__dirname)));
   app.use("/public", express.static(path.resolve(__dirname + "/../public")));
 
@@ -16,8 +16,6 @@ load().then((linkNodeLoader) => {
   });
 
   app.get("/search", (req, res) => {
-    const nodes = linkNodeLoader.nodes;
-
     nodes.forEach((node) => {
       node.previous = null;
       node.visited = false;

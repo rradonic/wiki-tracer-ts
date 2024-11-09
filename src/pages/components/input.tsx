@@ -27,6 +27,7 @@ export default function Input({ id, label }: InputProps) {
       <label htmlFor={id} className="mr-4 mb-1 text-sm block">
         {label}
       </label>
+
       <input
         type="text"
         id={id}

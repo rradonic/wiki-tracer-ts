@@ -13,5 +13,5 @@ export async function load() {
 
   console.log();
 
-  return linkNodeLoader;
+  return linkNodeLoader.nodes;
 }
