@@ -33,9 +33,17 @@ load().then((nodes) => {
   });
 
   app.get("/suggest", (req, res) => {
-    const input = req.query.input;
+    const input = req.query.input as string;
 
-    res.json({ suggestions: [input + "2"] });
+    let suggestions: string[] = [];
+
+    if (input.length > 2) {
+      suggestions = [...nodes.keys()]
+        .filter((title) => title.match(new RegExp(`^${input}`, "i")))
+        .sort();
+    }
+
+    res.json({ suggestions });
   });
 
   app.listen(port, () => {

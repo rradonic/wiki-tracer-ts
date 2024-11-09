@@ -1,13 +1,8 @@
-// function f(s) {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(s + "p");
-//     }, 2000);
-//   });
-// }
+const m = new Map<string, number>();
+m.set("a", 1);
+m.set("b", 2);
+m.set("c", 3);
 
-// Promise.resolve("wfp")
-//   .then(f)
-//   .then((s) => {
-//     console.log(s);
-//   });
+m.keys().filter((key) => {
+  return key === "a";
+});

@@ -1,18 +1,23 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 import { debounce } from "../helpers/debounce";
-
-const suggest = debounce(async (value: string) => {
-  const response = await fetch("/suggest?" + new URLSearchParams({ input: value }));
-
-  if (response.ok) {
-    const json = await response.json();
-    console.log(json);
-  }
-}, 500);
+import Suggestions from "./suggestions";
 
 export default function Input({ id, label }: InputProps) {
   const [value, setValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+  const suggest = useCallback(
+    debounce(async (value: string) => {
+      const response = await fetch("/suggest?" + new URLSearchParams({ input: value }));
+
+      if (response.ok) {
+        const json = await response.json();
+        setSuggestions(json.suggestions);
+      }
+    }, 500),
+    [],
+  );
 
   useEffect(() => {
     suggest(value);
@@ -35,6 +40,8 @@ export default function Input({ id, label }: InputProps) {
         value={value}
         onChange={onChange}
       />
+
+      <Suggestions suggestions={suggestions} />
     </>
   );
 }
