@@ -1,11 +1,11 @@
 export class GraphNode {
-  name: string;
+  title: string;
   neighbors: GraphNode[] = [];
   previous: GraphNode | null = null;
   visited = false;
 
   constructor(name: string) {
-    this.name = name;
+    this.title = name;
   }
 
   addNeighbor(node: GraphNode) {

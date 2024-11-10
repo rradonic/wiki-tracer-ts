@@ -29,7 +29,7 @@ load().then((nodes) => {
 
     const path = bfs(startNode!, endNode!);
 
-    res.json({ path: path.map((page) => page.name) });
+    res.json({ path: path.map((page) => page.title) });
   });
 
   app.get("/suggest", (req, res) => {
