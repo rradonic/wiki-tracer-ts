@@ -4,8 +4,10 @@ import { debounce } from "../helpers/debounce";
 import SuggestionBox, { Suggestions } from "./suggestionBox";
 
 export default function Input({ id, label }: InputProps) {
+  const emptySuggestions = { titles: [], more: false };
+
   const [value, setValue] = useState("");
-  const [suggestions, setSuggestions] = useState<Suggestions>({ titles: [], more: false });
+  const [suggestions, setSuggestions] = useState<Suggestions>(emptySuggestions);
   const [selection, setSelection] = useState(0);
 
   const suggest = useCallback(
@@ -48,7 +50,13 @@ export default function Input({ id, label }: InputProps) {
           } else if (evt.code === "Enter") {
             evt.preventDefault();
             setValue(suggestions.titles[selection]);
+          } else if (evt.code === "Escape") {
+            evt.preventDefault();
+            setSuggestions(emptySuggestions);
           }
+        }}
+        onBlur={() => {
+          setSuggestions(emptySuggestions);
         }}
       />
 
