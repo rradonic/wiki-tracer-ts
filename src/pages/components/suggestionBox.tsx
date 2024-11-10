@@ -12,12 +12,12 @@ export default function SuggestionBox({ suggestions, selection }: SuggestionBoxP
           key={i}
           className={classNames("p-1 px-2", {
             "bg-slate-200": selection === i,
-            "text-center text-sm p-0": suggestion === "...",
           })}
         >
           {suggestion.toUpperCase()}
         </div>
       ))}
+      {suggestions.more && <div className="text-center text-xs p-0 pb-1">...</div>}
     </div>
   );
 }
