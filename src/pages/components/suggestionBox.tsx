@@ -1,9 +1,6 @@
 import classNames from "classnames";
-import { useState } from "react";
 
-export default function SuggestionBox({ suggestions }: SuggestionBoxProps) {
-  const [selection, setSelection] = useState(0);
-
+export default function SuggestionBox({ suggestions, selection }: SuggestionBoxProps) {
   if (suggestions.length === 0) {
     return null;
   }
@@ -11,7 +8,13 @@ export default function SuggestionBox({ suggestions }: SuggestionBoxProps) {
   return (
     <div className="absolute bg-white p-1.5 rounded-sm border border-solid border-slate-300">
       {suggestions.map((suggestion, i) => (
-        <div key={i} className={classNames("p-1 px-2", { "bg-slate-200": selection === i })}>
+        <div
+          key={i}
+          className={classNames("p-1 px-2", {
+            "bg-slate-200": selection === i,
+            "text-center text-sm p-0": suggestion === "...",
+          })}
+        >
           {suggestion.toUpperCase()}
         </div>
       ))}
@@ -21,4 +24,5 @@ export default function SuggestionBox({ suggestions }: SuggestionBoxProps) {
 
 type SuggestionBoxProps = {
   suggestions: string[];
+  selection: number;
 };

@@ -41,6 +41,10 @@ load().then((nodes) => {
       suggestions = [...nodes.keys()]
         .filter((title) => title.match(new RegExp(`^${input}`, "i")))
         .sort();
+
+      if (suggestions.length > 7) {
+        suggestions = suggestions.slice(0, 7).concat("...");
+      }
     }
 
     res.json({ suggestions });

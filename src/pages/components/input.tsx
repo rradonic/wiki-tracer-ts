@@ -6,6 +6,7 @@ import SuggestionBox from "./suggestionBox";
 export default function Input({ id, label }: InputProps) {
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [selection, setSelection] = useState(0);
 
   const suggest = useCallback(
     debounce(async (value: string) => {
@@ -37,9 +38,21 @@ export default function Input({ id, label }: InputProps) {
         onChange={(evt) => {
           setValue(evt.currentTarget.value);
         }}
+        onKeyDown={(evt) => {
+          if (evt.code === "ArrowDown") {
+            evt.preventDefault();
+            setSelection(Math.min(selection + 1, suggestions.length - 2));
+          } else if (evt.code === "ArrowUp") {
+            evt.preventDefault();
+            setSelection(Math.max(selection - 1, 0));
+          } else if (evt.code === "Enter") {
+            evt.preventDefault();
+            setValue(suggestions[selection]);
+          }
+        }}
       />
 
-      <SuggestionBox suggestions={suggestions} />
+      <SuggestionBox suggestions={suggestions} selection={selection} />
     </>
   );
 }
