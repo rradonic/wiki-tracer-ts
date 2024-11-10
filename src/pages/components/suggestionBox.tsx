@@ -1,13 +1,13 @@
 import classNames from "classnames";
 
 export default function SuggestionBox({ suggestions, selection }: SuggestionBoxProps) {
-  if (suggestions.length === 0) {
+  if (suggestions.titles.length === 0) {
     return null;
   }
 
   return (
     <div className="absolute bg-white p-1.5 rounded-sm border border-solid border-slate-300">
-      {suggestions.map((suggestion, i) => (
+      {suggestions.titles.map((suggestion, i) => (
         <div
           key={i}
           className={classNames("p-1 px-2", {
@@ -22,7 +22,12 @@ export default function SuggestionBox({ suggestions, selection }: SuggestionBoxP
   );
 }
 
+export type Suggestions = {
+  titles: string[];
+  more: boolean;
+};
+
 type SuggestionBoxProps = {
-  suggestions: string[];
+  suggestions: Suggestions;
   selection: number;
 };

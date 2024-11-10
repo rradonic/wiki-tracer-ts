@@ -41,13 +41,9 @@ load().then((nodes) => {
       suggestions = [...nodes.keys()]
         .filter((title) => title.match(new RegExp(`^${input}`, "i")))
         .sort();
-
-      if (suggestions.length > 7) {
-        suggestions = suggestions.slice(0, 7).concat("...");
-      }
     }
 
-    res.json({ suggestions });
+    res.json({ titles: suggestions.slice(0, 7), more: suggestions.length > 7 });
   });
 
   app.listen(port, () => {

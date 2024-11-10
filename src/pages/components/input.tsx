@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { debounce } from "../helpers/debounce";
-import SuggestionBox from "./suggestionBox";
+import SuggestionBox, { Suggestions } from "./suggestionBox";
 
 export default function Input({ id, label }: InputProps) {
   const [value, setValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<Suggestions>({ titles: [], more: false });
   const [selection, setSelection] = useState(0);
 
   const suggest = useCallback(
@@ -14,7 +14,7 @@ export default function Input({ id, label }: InputProps) {
 
       if (response.ok) {
         const json = await response.json();
-        setSuggestions(json.suggestions);
+        setSuggestions(json);
       }
     }, 500),
     [],
@@ -41,13 +41,13 @@ export default function Input({ id, label }: InputProps) {
         onKeyDown={(evt) => {
           if (evt.code === "ArrowDown") {
             evt.preventDefault();
-            setSelection(Math.min(selection + 1, suggestions.length - 2));
+            setSelection(Math.min(selection + 1, suggestions.titles.length - 1));
           } else if (evt.code === "ArrowUp") {
             evt.preventDefault();
             setSelection(Math.max(selection - 1, 0));
           } else if (evt.code === "Enter") {
             evt.preventDefault();
-            setValue(suggestions[selection]);
+            setValue(suggestions.titles[selection]);
           }
         }}
       />
