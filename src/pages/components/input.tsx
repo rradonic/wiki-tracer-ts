@@ -8,7 +8,8 @@ export default function Input({ id, label }: InputProps) {
 
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestions>(emptySuggestions);
-  const [selection, setSelection] = useState(0);
+  const [selectedSuggestion, setSelectedSuggestion] = useState(0);
+  const [loadSuggestions, setLoadSuggestions] = useState(true);
 
   const suggest = useCallback(
     debounce(async (value: string) => {
@@ -23,7 +24,9 @@ export default function Input({ id, label }: InputProps) {
   );
 
   useEffect(() => {
-    suggest(value);
+    if (loadSuggestions) {
+      suggest(value);
+    }
   }, [value]);
 
   return (
@@ -43,16 +46,23 @@ export default function Input({ id, label }: InputProps) {
         onKeyDown={(evt) => {
           if (evt.code === "ArrowDown") {
             evt.preventDefault();
-            setSelection(Math.min(selection + 1, suggestions.titles.length - 1));
+            setSelectedSuggestion(Math.min(selectedSuggestion + 1, suggestions.titles.length - 1));
           } else if (evt.code === "ArrowUp") {
             evt.preventDefault();
-            setSelection(Math.max(selection - 1, 0));
+            setSelectedSuggestion(Math.max(selectedSuggestion - 1, 0));
           } else if (evt.code === "Enter") {
             evt.preventDefault();
-            setValue(suggestions.titles[selection]);
+
+            if (suggestions.titles[selectedSuggestion]) {
+              setValue(suggestions.titles[selectedSuggestion]);
+              setSuggestions(emptySuggestions);
+              setLoadSuggestions(false);
+            }
           } else if (evt.code === "Escape") {
             evt.preventDefault();
             setSuggestions(emptySuggestions);
+          } else {
+            setLoadSuggestions(true);
           }
         }}
         onBlur={() => {
@@ -60,7 +70,7 @@ export default function Input({ id, label }: InputProps) {
         }}
       />
 
-      <SuggestionBox suggestions={suggestions} selection={selection} />
+      <SuggestionBox suggestions={suggestions} selectedSuggestion={selectedSuggestion} />
     </>
   );
 }

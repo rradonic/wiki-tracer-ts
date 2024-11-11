@@ -1,6 +1,9 @@
 import classNames from "classnames";
 
-export default function SuggestionBox({ suggestions, selection }: SuggestionBoxProps) {
+export default function SuggestionBox({
+  suggestions,
+  selectedSuggestion: selection,
+}: SuggestionBoxProps) {
   if (suggestions.titles.length === 0) {
     return null;
   }
@@ -29,5 +32,5 @@ export type Suggestions = {
 
 type SuggestionBoxProps = {
   suggestions: Suggestions;
-  selection: number;
+  selectedSuggestion: number;
 };
