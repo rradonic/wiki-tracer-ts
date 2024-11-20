@@ -57,8 +57,7 @@ export default function App() {
 
           <ul className="list-disc ml-4 mb-4">
             <li className="mb-0.5">
-              How many jumps from the Wikipedia article about GUACAMOLE to the one about the
-              TRANSISTOR?
+              How many jumps from the Wikipedia page about CAMELS to the one about the TRANSISTOR?
             </li>
             <li>How about from TOYOTA to WAYNE GRETZKY?</li>
           </ul>
